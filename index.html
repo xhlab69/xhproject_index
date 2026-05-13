@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>嵌入式项目参考库 | 课程设计与毕业设计项目索引</title>
+    <meta
+      name="description"
+      content="面向大学生课程设计、毕业设计、实训作品的 STM32、单片机、嵌入式、物联网项目参考索引。"
+    />
+    <meta property="og:title" content="嵌入式项目参考库" />
+    <meta
+      property="og:description"
+      content="浏览 STM32、单片机、物联网、上位机、APP 等方向的成品项目参考。"
+    />
+    <meta property="og:image" content="assets/images/hero-board.png" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="返回首页">
+        <span class="brand-mark">PI</span>
+        <span>
+          <strong>Project Index</strong>
+          <small>Embedded References</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="主导航">
+        <a href="#catalog">项目目录</a>
+        <a href="#materials">物料范围</a>
+        <a href="#access">获取方式</a>
+        <a href="en.html">English</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero-image"
+          src="assets/images/hero-board.png"
+          alt="电路板与嵌入式项目视觉图"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">STM32 · 单片机 · 物联网 · 上位机</p>
+          <h1 id="hero-title">嵌入式项目参考库</h1>
+          <p class="hero-copy">
+            面向大学生课程设计、毕业设计和实训作品，集中展示项目主题、实现功能、核心器件与可交付物。源码与完整资料按项目单独交付。
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#catalog">浏览项目</a>
+            <a class="button secondary" href="#access">了解获取方式</a>
+          </div>
+          <dl class="hero-stats" aria-label="项目统计">
+            <div>
+              <dt data-stat="total">173</dt>
+              <dd>项目索引</dd>
+            </div>
+            <div>
+              <dt>7</dt>
+              <dd>方向分类</dd>
+            </div>
+            <div>
+              <dt>CN / EN</dt>
+              <dd>双语说明</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="站点说明">
+        <div class="container intro-grid">
+          <article>
+            <span class="section-kicker">公开展示</span>
+            <h2>只展示项目，不公开源码仓库</h2>
+            <p>
+              本站用于帮助访客快速判断项目方向和内容范围。每个项目对应独立资料包或私有仓库，确认后再提供源码、文档、原理图、演示资料等内容。
+            </p>
+          </article>
+          <article>
+            <span class="section-kicker">适用场景</span>
+            <h2>贴近课程设计与毕业设计</h2>
+            <p>
+              项目覆盖环境监测、智能家居、农业物联网、安防门禁、健康监测、电机控制、数据采集与通信等常见选题方向。
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
+        <div class="container">
+          <div class="section-heading">
+            <span class="section-kicker">Catalog</span>
+            <h2 id="catalog-title">项目分类</h2>
+            <p>按方向筛选项目，也可以输入项目编号、关键词、模块名称快速搜索。</p>
+          </div>
+
+          <div class="category-grid" id="categoryGrid" aria-label="项目分类筛选"></div>
+
+          <div class="catalog-toolbar">
+            <label class="search-field" for="projectSearch">
+              <span>搜索</span>
+              <input
+                id="projectSearch"
+                type="search"
+                placeholder="输入项目编号、STM32、OLED、OneNET、上位机..."
+                autocomplete="off"
+              />
+            </label>
+            <label class="select-field" for="sortSelect">
+              <span>排序</span>
+              <select id="sortSelect">
+                <option value="id">按项目编号</option>
+                <option value="name">按项目名称</option>
+                <option value="category">按项目方向</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="result-meta" aria-live="polite">
+            <strong id="resultCount">0</strong>
+            <span id="resultText">个项目</span>
+          </div>
+
+          <div class="project-grid" id="projectGrid"></div>
+          <div class="load-more-wrap">
+            <button class="button ghost" id="loadMoreButton" type="button">加载更多项目</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="materials-section" id="materials" aria-labelledby="materials-title">
+        <div class="container">
+          <div class="section-heading compact">
+            <span class="section-kicker">Deliverables</span>
+            <h2 id="materials-title">项目物料范围</h2>
+            <p>不同项目内容会有差异，具体以确认后的项目资料清单为准。</p>
+          </div>
+          <div class="material-grid">
+            <article>
+              <h3>源码工程</h3>
+              <p>STM32、单片机、ESP8266、APP、上位机等工程文件。</p>
+            </article>
+            <article>
+              <h3>设计文档</h3>
+              <p>功能介绍、模块设计、系统框图、流程图和调试说明。</p>
+            </article>
+            <article>
+              <h3>硬件资料</h3>
+              <p>原理图、接线说明、模块清单、部分项目 PCB 或仿真资料。</p>
+            </article>
+            <article>
+              <h3>报告参考</h3>
+              <p>课程设计报告、论文结构、运行截图或演示说明。</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="access-section" id="access" aria-labelledby="access-title">
+        <div class="container access-layout">
+          <div>
+            <span class="section-kicker">Access</span>
+            <h2 id="access-title">获取方式</h2>
+            <p>
+              为避免源码被公开搬运或误用，公开网站不放置真实源码仓库地址和资料下载链接。需要完整物料时，请提供项目编号或项目名称确认。
+            </p>
+          </div>
+          <ol class="steps">
+            <li>
+              <strong>选择项目</strong>
+              <span>从目录中记录项目编号，例如 P001。</span>
+            </li>
+            <li>
+              <strong>确认物料</strong>
+              <span>确认是否需要源码、文档、原理图、报告、APP 或上位机。</span>
+            </li>
+            <li>
+              <strong>单独交付</strong>
+              <span>确认后通过私有仓库、资料包或网盘链接交付。</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="contact-section" aria-labelledby="contact-title">
+        <div class="container contact-panel">
+          <div>
+            <span class="section-kicker">Contact</span>
+            <h2 id="contact-title">联系获取项目资料</h2>
+            <p>咨询时建议直接发送项目编号、项目名称和需要的物料范围，便于快速确认。</p>
+          </div>
+          <div class="contact-list">
+            <p><strong>项目编号格式：</strong>P001 / P026 / P173</p>
+            <p><strong>联系方式：</strong>微信、邮箱或表单链接可放在此处</p>
+            <p><strong>说明：</strong>资料仅用于学习参考，请结合课程要求理解和二次开发。</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="project-dialog" id="projectDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="关闭详情">×</button>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <script src="data/projects.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,210 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Embedded Project Reference Library | Course and Graduation Project Index</title>
+    <meta
+      name="description"
+      content="A static project catalog for STM32, microcontroller, embedded system and IoT course or graduation project references."
+    />
+    <meta property="og:title" content="Embedded Project Reference Library" />
+    <meta
+      property="og:description"
+      content="Browse ready-made STM32, microcontroller, IoT, PC software and APP project references."
+    />
+    <meta property="og:image" content="assets/images/hero-board.png" />
+    <link rel="stylesheet" href="assets/styles.css" />
+  </head>
+  <body>
+    <header class="site-header" data-header>
+      <a class="brand" href="#top" aria-label="Back to home">
+        <span class="brand-mark">PI</span>
+        <span>
+          <strong>Project Index</strong>
+          <small>Embedded References</small>
+        </span>
+      </a>
+      <nav class="site-nav" aria-label="Main navigation">
+        <a href="#catalog">Catalog</a>
+        <a href="#materials">Deliverables</a>
+        <a href="#access">Access</a>
+        <a href="index.html">中文</a>
+      </nav>
+    </header>
+
+    <main id="top">
+      <section class="hero" aria-labelledby="hero-title">
+        <img
+          class="hero-image"
+          src="assets/images/hero-board.png"
+          alt="Circuit board visual for embedded projects"
+        />
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+          <p class="eyebrow">STM32 · Microcontroller · IoT · PC Software</p>
+          <h1 id="hero-title">Embedded Project Reference Library</h1>
+          <p class="hero-copy">
+            A curated catalog for university course design, graduation projects and practical training. Browse each project by topic, implemented functions, key technologies and deliverable scope.
+          </p>
+          <div class="hero-actions">
+            <a class="button primary" href="#catalog">Browse Projects</a>
+            <a class="button secondary" href="#access">How Access Works</a>
+          </div>
+          <dl class="hero-stats" aria-label="Project statistics">
+            <div>
+              <dt data-stat="total">173</dt>
+              <dd>Projects</dd>
+            </div>
+            <div>
+              <dt>7</dt>
+              <dd>Categories</dd>
+            </div>
+            <div>
+              <dt>CN / EN</dt>
+              <dd>Bilingual Pages</dd>
+            </div>
+          </dl>
+        </div>
+      </section>
+
+      <section class="intro-band" aria-label="Website description">
+        <div class="container intro-grid">
+          <article>
+            <span class="section-kicker">Public Catalog</span>
+            <h2>Project previews only, no public source repositories</h2>
+            <p>
+              This website helps visitors quickly understand project directions and material scope. Each project is delivered separately through a private repository or project package after confirmation.
+            </p>
+          </article>
+          <article>
+            <span class="section-kicker">Use Cases</span>
+            <h2>Close to course and graduation project scenarios</h2>
+            <p>
+              Projects cover environment monitoring, smart home, agricultural IoT, security access control, health monitoring, motor control, data acquisition and communication.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <section class="catalog-section" id="catalog" aria-labelledby="catalog-title">
+        <div class="container">
+          <div class="section-heading">
+            <span class="section-kicker">Catalog</span>
+            <h2 id="catalog-title">Project Categories</h2>
+            <p>Filter by direction, or search by project ID, keyword, component name or technology.</p>
+          </div>
+
+          <div class="category-grid" id="categoryGrid" aria-label="Project category filters"></div>
+
+          <div class="catalog-toolbar">
+            <label class="search-field" for="projectSearch">
+              <span>Search</span>
+              <input
+                id="projectSearch"
+                type="search"
+                placeholder="Project ID, STM32, OLED, OneNET, PC software..."
+                autocomplete="off"
+              />
+            </label>
+            <label class="select-field" for="sortSelect">
+              <span>Sort</span>
+              <select id="sortSelect">
+                <option value="id">By project ID</option>
+                <option value="name">By project name</option>
+                <option value="category">By category</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="result-meta" aria-live="polite">
+            <strong id="resultCount">0</strong>
+            <span id="resultText">projects</span>
+          </div>
+
+          <div class="project-grid" id="projectGrid"></div>
+          <div class="load-more-wrap">
+            <button class="button ghost" id="loadMoreButton" type="button">Load More Projects</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="materials-section" id="materials" aria-labelledby="materials-title">
+        <div class="container">
+          <div class="section-heading compact">
+            <span class="section-kicker">Deliverables</span>
+            <h2 id="materials-title">Typical Project Materials</h2>
+            <p>Exact deliverables vary by project and should be confirmed before access.</p>
+          </div>
+          <div class="material-grid">
+            <article>
+              <h3>Source Code</h3>
+              <p>STM32, microcontroller, ESP8266, APP, PC software or related engineering files.</p>
+            </article>
+            <article>
+              <h3>Design Documents</h3>
+              <p>Function design, module design, system diagrams, flowcharts and debugging notes.</p>
+            </article>
+            <article>
+              <h3>Hardware Materials</h3>
+              <p>Schematics, wiring notes, module lists, PCB files or simulation files for selected projects.</p>
+            </article>
+            <article>
+              <h3>Report References</h3>
+              <p>Course design reports, thesis structures, screenshots or demo notes for selected projects.</p>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <section class="access-section" id="access" aria-labelledby="access-title">
+        <div class="container access-layout">
+          <div>
+            <span class="section-kicker">Access</span>
+            <h2 id="access-title">How Access Works</h2>
+            <p>
+              To prevent uncontrolled redistribution, the public website does not expose real source repository URLs or download links. Please provide the project ID or project name when requesting full materials.
+            </p>
+          </div>
+          <ol class="steps">
+            <li>
+              <strong>Choose a project</strong>
+              <span>Record a project ID, for example P001.</span>
+            </li>
+            <li>
+              <strong>Confirm deliverables</strong>
+              <span>Confirm whether you need source code, documents, schematics, reports, APP or PC software.</span>
+            </li>
+            <li>
+              <strong>Receive separately</strong>
+              <span>After confirmation, materials are delivered through a private repository, project package or cloud drive link.</span>
+            </li>
+          </ol>
+        </div>
+      </section>
+
+      <section class="contact-section" aria-labelledby="contact-title">
+        <div class="container contact-panel">
+          <div>
+            <span class="section-kicker">Contact</span>
+            <h2 id="contact-title">Request Project Materials</h2>
+            <p>When contacting, send the project ID, project name and required material scope for faster confirmation.</p>
+          </div>
+          <div class="contact-list">
+            <p><strong>Project ID format:</strong>P001 / P026 / P173</p>
+            <p><strong>Contact:</strong>WeChat, email or form link can be placed here</p>
+            <p><strong>Note:</strong>Materials are for learning and reference. Please understand and adapt them according to your course rules.</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <dialog class="project-dialog" id="projectDialog" aria-labelledby="dialogTitle">
+      <button class="dialog-close" type="button" data-close-dialog aria-label="Close details">×</button>
+      <div id="dialogContent"></div>
+    </dialog>
+
+    <script src="data/projects.en.js"></script>
+    <script src="assets/app.js"></script>
+  </body>
+</html>
