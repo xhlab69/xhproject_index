@@ -79,28 +79,6 @@ QR codes:
 | --- | --- | --- |
 | ![WeChat QR](assets/images/contact/wechat.png) | ![Xianyu info](assets/images/contact/xianyu.jpg) | ![WeChat group QR](assets/images/contact/wechat-group.jpg) |
 
-## Directory Structure
-
-```text
-.
-├─ index.html              # Chinese project index page
-├─ en.html                 # English project index page
-├─ README.md               # Chinese documentation
-├─ README.en.md            # English documentation
-├─ assets/
-│  ├─ app.js               # Page interaction logic
-│  ├─ styles.css           # Page styles
-│  └─ images/
-│     ├─ brand/            # Brand logo
-│     ├─ contact/          # WeChat, Xianyu and group QR codes
-│     ├─ hero/             # Hero images
-│     ├─ categories/       # Category images
-│     └─ projects/         # Project images
-├─ data/                   # Project catalog data
-├─ pages/                  # Auxiliary display pages
-└─ tools/                  # Image and asset generation scripts
-```
-
 ## Project Catalog
 
 | ID | Project | Implemented Functions | Key Materials / Technologies | Access |

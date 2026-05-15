@@ -87,28 +87,6 @@
 - 985 硕士，电子信息方向毕业，多年从事嵌入式软件开发。
 - 支持 STM32、ESP32、STC89C51/52、Arduino、单片机、物联网、上位机、安卓 APP、小程序等方向项目资料与定制开发确认。
 
-## 目录结构
-
-```text
-.
-├─ index.html              # 中文项目索引页
-├─ en.html                 # 英文项目索引页
-├─ README.md               # 中文说明文档
-├─ README.en.md            # 英文说明文档
-├─ assets/
-│  ├─ app.js               # 页面交互逻辑
-│  ├─ styles.css           # 页面样式
-│  └─ images/
-│     ├─ brand/            # 品牌 Logo
-│     ├─ contact/          # 微信、闲鱼、交流群二维码
-│     ├─ hero/             # 首屏展示图
-│     ├─ categories/       # 分类入口图
-│     └─ projects/         # 项目展示图
-├─ data/                   # 项目索引数据
-├─ pages/                  # 辅助展示页面
-└─ tools/                  # 图片或素材生成脚本
-```
-
 ## 项目索引
 
 > **使用说明**
