@@ -4,7 +4,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT_DIR = ROOT / "assets" / "brand"
+OUT_DIR = ROOT / "assets" / "images" / "brand"
 PNG_OUT = OUT_DIR / "xiahou-workshop-logo.png"
 SVG_OUT = OUT_DIR / "xiahou-workshop-logo.svg"
 

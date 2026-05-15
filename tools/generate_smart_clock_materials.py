@@ -6,7 +6,7 @@ from PIL import Image, ImageDraw, ImageFont
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "assets" / "project-images" / "stm32_wifi_smart_clock_materials.png"
+OUT = ROOT / "assets" / "images" / "projects" / "stm32_wifi_smart_clock_materials.png"
 
 W, H = 1920, 1080
 FONT_REG = r"C:\Windows\Fonts\msyh.ttc"

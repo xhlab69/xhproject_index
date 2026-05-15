@@ -4,8 +4,8 @@ from PIL import Image, ImageDraw, ImageFilter, ImageFont, ImageOps
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "assets" / "project-images" / "stm32_wifi_smart_clock_cover_style.png"
-LOGO_PATH = ROOT / "log.png"
+OUT = ROOT / "assets" / "images" / "projects" / "stm32_wifi_smart_clock_cover_style.png"
+LOGO_PATH = ROOT / "assets" / "images" / "brand" / "logo.png"
 
 SCALE = 3
 W, H = 1200, 900

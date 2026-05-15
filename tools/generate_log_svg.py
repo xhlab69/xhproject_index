@@ -2,7 +2,7 @@ from pathlib import Path
 
 
 ROOT = Path(__file__).resolve().parents[1]
-OUT = ROOT / "log.svg"
+OUT = ROOT / "assets" / "images" / "brand" / "logo.svg"
 
 BLUE = "#064DA8"
 DARK = "#242A33"
@@ -92,5 +92,6 @@ SVG = f"""<svg width="1254" height="1254" viewBox="0 0 1254 1254" fill="none" xm
 
 
 if __name__ == "__main__":
+    OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(SVG, encoding="utf-8")
     print(OUT)

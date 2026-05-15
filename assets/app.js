@@ -1,6 +1,8 @@
 (function () {
   const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
   const lang = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "zh";
+  const assetBase = new URL(".", document.currentScript.src);
+  const assetPath = (path) => new URL(path, assetBase).toString();
 
   const copy = {
     zh: {
@@ -68,14 +70,14 @@
       id: "all",
       label: { zh: "全部项目", en: "All Projects" },
       caption: { zh: "完整索引", en: "Full catalog" },
-      image: "assets/images/hero-board.png",
+      image: assetPath("images/hero/hero-board.png"),
       keywords: [],
     },
     {
       id: "environment",
       label: { zh: "环境监测", en: "Environment Monitoring" },
       caption: { zh: "传感器 / 报警 / 显示", en: "Sensors / alarms / display" },
-      image: "assets/images/category-environment.png",
+      image: assetPath("images/categories/category-environment.png"),
       keywords: [
         "环境",
         "温湿度",
@@ -120,7 +122,7 @@
       id: "iot",
       label: { zh: "农业 / 物联网", en: "Agriculture / IoT" },
       caption: { zh: "云平台 / APP / 远程", en: "Cloud / APP / remote" },
-      image: "assets/images/category-iot.png",
+      image: assetPath("images/categories/category-iot.png"),
       keywords: [
         "农业",
         "大棚",
@@ -158,7 +160,7 @@
       id: "home",
       label: { zh: "智能家居", en: "Smart Home" },
       caption: { zh: "生活场景 / 设备联动", en: "Daily scenarios / linked devices" },
-      image: "assets/images/category-home.png",
+      image: assetPath("images/categories/category-home.png"),
       keywords: [
         "家居",
         "窗帘",
@@ -192,7 +194,7 @@
       id: "security",
       label: { zh: "安防门禁", en: "Security Access" },
       caption: { zh: "识别 / 报警 / 消防", en: "Recognition / alarm / fire safety" },
-      image: "assets/images/category-security.png",
+      image: assetPath("images/categories/category-security.png"),
       keywords: [
         "安防",
         "门禁",
@@ -226,7 +228,7 @@
       id: "health",
       label: { zh: "健康医疗", en: "Health Monitoring" },
       caption: { zh: "体征 / 可穿戴 / 监护", en: "Vital signs / wearable / care" },
-      image: "assets/images/category-health.png",
+      image: assetPath("images/categories/category-health.png"),
       keywords: [
         "心率",
         "血氧",
@@ -259,7 +261,7 @@
       id: "motion",
       label: { zh: "运动控制", en: "Motion Control" },
       caption: { zh: "电机 / 舵机 / PWM", en: "Motor / servo / PWM" },
-      image: "assets/images/category-motion.png",
+      image: assetPath("images/categories/category-motion.png"),
       keywords: [
         "电机",
         "舵机",
@@ -288,7 +290,7 @@
       id: "data",
       label: { zh: "数据采集 / 通信", en: "Data / Communication" },
       caption: { zh: "ADC / 串口 / 上位机", en: "ADC / serial / PC software" },
-      image: "assets/images/category-data.png",
+      image: assetPath("images/categories/category-data.png"),
       keywords: [
         "ADC",
         "DAC",
