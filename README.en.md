@@ -6,6 +6,9 @@
 
 This repository is a public catalog of project references. Visitors can browse project topics, implemented functions, key materials and access status here. Project source code is paid content. After purchasing a finished project, the program source code, schematics and documentation can be provided as complimentary materials, with one-on-one Tencent Meeting walkthrough and technical guidance when needed.
 
+**Personal homepage: <https://xhlab69.github.io/xhproject_index/>**  
+You can browse categories and search keywords on the personal homepage first, find a project that fits your course design, graduation project or training work, and then contact me with the project ID to confirm materials and delivery.
+
 > Custom development is supported. If you need additional functions, interaction changes, APP / mini-program / PC software adaptation or extra hardware modules, please contact me to confirm the requirements and implementation plan.
 
 > Learning note: These projects are intended for learning, reference and hands-on practice. Please understand, adapt and rebuild them according to your course requirements instead of submitting them directly as assignments.
@@ -61,10 +64,11 @@ To prevent direct copying and uncontrolled redistribution, source repositories a
 
 ## Contact And Service Notes
 
-When contacting me, please send the project ID, project name and required material scope so that the finished project, source code, documents, schematics, physical item or demo materials can be confirmed quickly.
+Before contacting me, you can visit the personal homepage <https://xhlab69.github.io/xhproject_index/> to browse project categories and search keywords. After finding a suitable project, send the project ID, project name and required material scope so that the finished project, source code, documents, schematics, physical item or demo materials can be confirmed quickly.
 
 | Channel | Information | Notes |
 | --- | --- | --- |
+| Personal homepage | <https://xhlab69.github.io/xhproject_index/> | Browse project categories and search keywords online, then contact me with the project ID after choosing a suitable project. |
 | WeChat | `CamelliaRose76` | Scan the QR code or search the WeChat ID, then send the project ID to confirm the material scope. |
 | Xianyu shop | `XhLab码农小匠` | View project materials, finished items, delivery notes and service quality reviews. |
 | Technical discussion group | `XhLab 技术答疑群` | You can join the WeChat group without purchasing for free Q&A, study guidance and technical discussion. |
@@ -281,6 +285,7 @@ To request materials, provide the project ID or project name and describe which 
 
 Common contact channels:
 
+- Personal homepage: <https://xhlab69.github.io/xhproject_index/>. You can browse and search projects first, then contact me after choosing a suitable direction.
 - WeChat: `CamelliaRose76`
 - Xianyu shop: `XhLab码农小匠`
 - Technical discussion group: scan the WeChat group QR code to join; free Q&A, study guidance and technical discussion are available even without purchasing
