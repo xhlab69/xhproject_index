@@ -2,9 +2,13 @@
 
 # University Course Project / Graduation Project Reference Index
 
-**Ready-made embedded, STM32, microcontroller and IoT project references for students**
+**Ready-made STM32, ESP32, STC89C51/52, Arduino, microcontroller, IoT, PC software, Android APP and mini-program project references for students**
 
-This repository is a public catalog of project references. Visitors can browse project topics, implemented functions, key materials and access status here. Source code and full project packages are delivered separately after confirmation.
+This repository is a public catalog of project references. Visitors can browse project topics, implemented functions, key materials and access status here. Project source code is paid content. After purchasing a finished project, the program source code, schematics and documentation can be provided as complimentary materials, with one-on-one Tencent Meeting walkthrough and technical guidance when needed.
+
+> Custom development is supported. If you need additional functions, interaction changes, APP / mini-program / PC software adaptation or extra hardware modules, please contact me to confirm the requirements and implementation plan.
+
+> Learning note: These projects are intended for learning, reference and hands-on practice. Please understand, adapt and rebuild them according to your course requirements instead of submitting them directly as assignments.
 
 English | [中文](README.md)
 
@@ -18,14 +22,17 @@ English | [中文](README.md)
 
 ## About This Catalog
 
-This repository is designed as a public project index, not an open-source code repository. Each listed project has a separate private repository or project package. The source code, engineering files, documents and other materials are provided only after the requested project is confirmed.
+This repository is designed as a public project index, not an open-source code repository. Each listed project has a separate private repository or project package. Source code is paid content. After purchasing a finished project, the program source code, schematics, documentation and demo materials can be provided as complimentary deliverables. One-on-one Tencent Meeting walkthrough and follow-up technical guidance can also be arranged when needed.
+
+This is individually operated, not outsourced by a team. The operator holds a 985 university master's degree in electronic information and has years of embedded software development experience. A Xianyu shop is currently operated, where service quality reviews can be checked.
 
 Suitable use cases:
 
 - Course design, lab project, capstone project and graduation project topic selection
-- STM32, microcontroller, embedded system and IoT learning
-- Sensor acquisition, OLED/LCD display, Bluetooth, WiFi, cloud platform, PC software, mobile APP and mini-program project references
+- STM32, ESP32, STC89C51/52, Arduino, microcontroller, embedded system and IoT learning
+- Sensor acquisition, OLED/LCD display, Bluetooth, WiFi, cloud platform, PC software, Android APP and mini-program project references
 - Report writing, function design, module division, system diagrams and program flowchart references
+- Custom feature development based on existing finished projects, including module additions and software-hardware integration
 
 ## Typical Deliverables
 
@@ -33,22 +40,40 @@ Different projects may include different materials. The exact package should be 
 
 | Material | Description |
 | --- | --- |
-| Source code | STM32, microcontroller, ESP8266, APP, PC software or related engineering files |
+| Source code | STM32, ESP32, STC89C51/52, Arduino, microcontroller, ESP8266, Android APP, mini-program, PC software or related engineering files |
 | Design documents | Project description, function design, module design, system diagram and flowchart |
 | Hardware materials | Schematics, wiring notes, sensor/module list, PCB or simulation files for selected projects |
 | Demo materials | Screenshots, running notes, debugging steps or demo video notes |
 | Report references | Course design reports, thesis drafts or editable report structures for selected projects |
+| Walkthrough and guidance | Tencent Meeting walkthrough, debugging explanation and follow-up technical guidance after purchasing a finished project |
 
 ## Access Policy
 
 To prevent direct copying and uncontrolled redistribution, source repositories are not exposed in this public catalog.
 
-1. Pick the project ID or project name from the catalog below.
-2. Contact the maintainer to confirm the materials, price and delivery method.
-3. After confirmation, access is provided through a private repository or a project package.
-4. Materials are intended for learning, reference, secondary development and project understanding.
+1. Pick the project ID or project name from the catalog below, such as `P001`.
+2. Contact me through WeChat or Xianyu and describe the materials you need, such as the finished project, source code, documents, schematics, report, APP, mini-program or PC software.
+3. After the project scope, material list, price and delivery method are confirmed, purchase the finished project. The program source code, schematics and documentation can be provided as complimentary materials after purchase.
+4. If you need extra functions, interaction changes, APP / mini-program / PC software adaptation or additional hardware modules, a custom development plan can be confirmed separately.
+5. You may also join the technical discussion group without purchasing. Free Q&A, study guidance and technical discussion are available in the group.
 
-> Academic note: These materials are for learning and reference. Please adapt, understand and rebuild the project according to your own course requirements and your university's academic rules.
+> Academic note: These materials are for learning, reference and practice. Please adapt, understand and rebuild the project according to your own course requirements and your university's academic rules. Direct submission as an assignment is not recommended.
+
+## Contact And Service Notes
+
+When contacting me, please send the project ID, project name and required material scope so that the finished project, source code, documents, schematics, physical item or demo materials can be confirmed quickly.
+
+| Channel | Information | Notes |
+| --- | --- | --- |
+| WeChat | `CamelliaRose76` | Scan the QR code or search the WeChat ID, then send the project ID to confirm the material scope. |
+| Xianyu shop | `XhLab码农小匠` | View project materials, finished items, delivery notes and service quality reviews. |
+| Technical discussion group | `XhLab 技术答疑群` | You can join the WeChat group without purchasing for free Q&A, study guidance and technical discussion. |
+
+QR codes:
+
+| WeChat | Xianyu | Technical group |
+| --- | --- | --- |
+| ![WeChat QR](wechat.png) | ![Xianyu info](xianyu.jpg) | ![WeChat group QR](微信图片_20260515180647_5_158.jpg) |
 
 ## Project Catalog
 
@@ -230,6 +255,13 @@ To prevent direct copying and uncontrolled redistribution, source repositories a
 
 ## Contact And Updates
 
-To request materials, provide the project ID or project name and describe which parts you need. Some projects can be delivered as a full package, while others may be delivered as source code, documents, schematics or report references separately.
+To request materials, provide the project ID or project name and describe which parts you need. If you only need source code, documents, schematics, report references, APP, mini-program or PC software, that can also be confirmed separately.
+
+Common contact channels:
+
+- WeChat: `CamelliaRose76`
+- Xianyu shop: `XhLab码农小匠`
+- Technical discussion group: scan the WeChat group QR code to join; free Q&A, study guidance and technical discussion are available even without purchasing
+- Custom development: feature additions, logic changes, module supplements and software-hardware integration can be confirmed based on existing projects
 
 This catalog will continue to be updated. Future versions may add category, difficulty level, thesis/report availability, APP/PC software availability and cloud-platform support fields for faster filtering.
