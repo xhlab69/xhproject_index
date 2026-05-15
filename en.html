@@ -19,9 +19,9 @@
   <body>
     <header class="site-header" data-header>
       <a class="brand" href="#top" aria-label="Back to home">
-        <span class="brand-mark">PI</span>
+        <img class="brand-logo" src="log.png" alt="Xiahou Electronics Workshop" />
         <span>
-          <strong>Project Index</strong>
+          <strong>Xiahou Workshop</strong>
           <small>Embedded References</small>
         </span>
       </a>
@@ -29,6 +29,7 @@
         <a href="#catalog">Catalog</a>
         <a href="#materials">Deliverables</a>
         <a href="#access">Access</a>
+        <a href="#contact">Contact</a>
         <a href="index.html">中文</a>
       </nav>
     </header>
@@ -183,17 +184,38 @@
         </div>
       </section>
 
-      <section class="contact-section" aria-labelledby="contact-title">
+      <section class="contact-section" id="contact" aria-labelledby="contact-title">
         <div class="container contact-panel">
-          <div>
+          <div class="contact-copy">
             <span class="section-kicker">Contact</span>
             <h2 id="contact-title">Request Project Materials</h2>
             <p>When contacting, send the project ID, project name and required material scope for faster confirmation.</p>
+            <div class="contact-brand">
+              <img src="log.png" alt="Xiahou Electronics Workshop logo" />
+              <div>
+                <strong>Xiahou Electronics Workshop</strong>
+                <span>Embedded MCU development · STM32 / IoT project materials</span>
+              </div>
+            </div>
           </div>
-          <div class="contact-list">
-            <p><strong>Project ID format:</strong>P001 / P026 / P173</p>
-            <p><strong>Contact:</strong>WeChat, email or form link can be placed here</p>
-            <p><strong>Note:</strong>Materials are for learning and reference. Please understand and adapt them according to your course rules.</p>
+          <div class="contact-cards">
+            <article class="contact-card primary-contact">
+              <div class="contact-card-text">
+                <span class="contact-label">WeChat</span>
+                <h3>CamelliaRose76</h3>
+                <p>Scan the QR code or search this WeChat ID, then send the project ID.</p>
+              </div>
+              <img class="contact-qr" src="wechat.png" alt="WeChat QR code" />
+            </article>
+            <article class="contact-card">
+              <div class="contact-card-text">
+                <span class="contact-label">Xianyu</span>
+                <h3>XhLab码农小匠</h3>
+                <p>View project materials, physical builds and delivery notes on Xianyu.</p>
+              </div>
+              <img class="contact-qr" src="xianyu.jpg" alt="Xianyu information image" />
+            </article>
+            <p class="contact-note">Materials are for learning and reference. Please understand and adapt them according to your course rules.</p>
           </div>
         </div>
       </section>
