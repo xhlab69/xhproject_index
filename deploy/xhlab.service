@@ -7,7 +7,6 @@ Type=simple
 WorkingDirectory=/opt/xhlab/project_index
 Environment=HOST=127.0.0.1
 Environment=PORT=8000
-Environment=ADMIN_PASSWORD=change-this-password
 ExecStart=/usr/bin/python3 /opt/xhlab/project_index/server.py
 Restart=always
 RestartSec=3

@@ -18,7 +18,11 @@ http://127.0.0.1:8000
 http://127.0.0.1:8000/admin
 ```
 
-如果没有设置 `ADMIN_PASSWORD`，首次运行会在 `storage/admin.secret` 生成一个临时后台密码。
+后台密码使用 PBKDF2 哈希保存，不会明文写入 `storage/admin.secret`。首次运行后可以用下面的命令设置后台密码：
+
+```bash
+python server.py --set-admin-password
+```
 
 ## 服务器部署流程
 
@@ -30,13 +34,20 @@ http://127.0.0.1:8000/admin
 
 1. 上传整个项目目录到服务器。
 2. 安装 Python 3 和 Nginx。
-3. 编辑 `deploy/xhlab.service`，把 `ADMIN_PASSWORD=change-this-password` 改成你自己的强密码。
-4. 复制 systemd 服务：
+3. 复制 systemd 服务：
 
 ```bash
 cp deploy/xhlab.service /etc/systemd/system/xhlab.service
 systemctl daemon-reload
 systemctl enable --now xhlab
+```
+
+4. 设置后台密码：
+
+```bash
+cd /opt/xhlab/project_index
+python3 server.py --set-admin-password
+systemctl restart xhlab
 ```
 
 5. 复制 Nginx 配置：

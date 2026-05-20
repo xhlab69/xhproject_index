@@ -28,6 +28,7 @@ from http.server import ThreadingHTTPServer, BaseHTTPRequestHandler
 from io import BytesIO
 from pathlib import Path
 from typing import Optional
+from getpass import getpass
 
 
 ROOT = Path(__file__).resolve().parent
@@ -39,6 +40,8 @@ ADMIN_PASSWORD_FILE = STORAGE_DIR / "admin.secret"
 LEGACY_PROJECTS_JS = ROOT / "data" / "projects.js"
 MAX_BODY_SIZE = 12 * 1024 * 1024
 SESSION_SECONDS = 7 * 24 * 60 * 60
+PASSWORD_HASH_PREFIX = "pbkdf2_sha256"
+PASSWORD_HASH_ITERATIONS = 260000
 
 
 def ensure_storage() -> None:
@@ -49,7 +52,7 @@ def ensure_storage() -> None:
     if not APP_SECRET_FILE.exists():
         APP_SECRET_FILE.write_text(secrets.token_urlsafe(48), encoding="utf-8")
     if "ADMIN_PASSWORD" not in os.environ and not ADMIN_PASSWORD_FILE.exists():
-        ADMIN_PASSWORD_FILE.write_text(secrets.token_urlsafe(18), encoding="utf-8")
+        ADMIN_PASSWORD_FILE.write_text(make_password_hash(secrets.token_urlsafe(32)), encoding="utf-8")
 
 
 def load_legacy_projects() -> list[dict]:
@@ -123,9 +126,56 @@ def read_app_secret() -> str:
     return os.environ.get("APP_SECRET") or APP_SECRET_FILE.read_text(encoding="utf-8").strip()
 
 
-def read_admin_password() -> str:
+def make_password_hash(password: str) -> str:
+    salt = secrets.token_hex(16)
+    digest = hashlib.pbkdf2_hmac(
+        "sha256",
+        password.encode("utf-8"),
+        salt.encode("utf-8"),
+        PASSWORD_HASH_ITERATIONS,
+    )
+    encoded = base64.urlsafe_b64encode(digest).decode("ascii").rstrip("=")
+    return f"{PASSWORD_HASH_PREFIX}${PASSWORD_HASH_ITERATIONS}${salt}${encoded}"
+
+
+def verify_password(password: str, stored: str) -> bool:
+    if stored.startswith(f"{PASSWORD_HASH_PREFIX}$"):
+        try:
+            _, iterations, salt, encoded = stored.split("$", 3)
+            digest = hashlib.pbkdf2_hmac(
+                "sha256",
+                password.encode("utf-8"),
+                salt.encode("utf-8"),
+                int(iterations),
+            )
+            candidate = base64.urlsafe_b64encode(digest).decode("ascii").rstrip("=")
+            return hmac.compare_digest(candidate, encoded)
+        except Exception:
+            return False
+
+    # Backward compatibility for existing plaintext admin.secret files.
+    return hmac.compare_digest(password, stored)
+
+
+def read_admin_secret() -> str:
     ensure_storage()
     return os.environ.get("ADMIN_PASSWORD") or ADMIN_PASSWORD_FILE.read_text(encoding="utf-8").strip()
+
+
+def verify_admin_password(password: str) -> bool:
+    return verify_password(password, read_admin_secret())
+
+
+def set_admin_password_interactive() -> None:
+    ensure_storage()
+    password = getpass("New admin password: ").strip()
+    confirm = getpass("Retype new admin password: ").strip()
+    if not password:
+        raise SystemExit("Password cannot be empty.")
+    if password != confirm:
+        raise SystemExit("Passwords do not match.")
+    ADMIN_PASSWORD_FILE.write_text(make_password_hash(password), encoding="utf-8")
+    print(f"Updated {ADMIN_PASSWORD_FILE}")
 
 
 def make_session() -> str:
@@ -514,7 +564,7 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/admin/login":
             fields = parse_form(body, self.headers.get("content-type", ""))
-            if hmac.compare_digest(fields.get("password", ""), read_admin_password()):
+            if verify_admin_password(fields.get("password", "")):
                 session = make_session()
                 self.redirect("/admin", headers={"Set-Cookie": f"xh_admin={session}; HttpOnly; SameSite=Lax; Path=/; Max-Age={SESSION_SECONDS}"})
             else:
@@ -583,12 +633,16 @@ class Handler(BaseHTTPRequestHandler):
 
 
 def main() -> None:
+    if len(sys.argv) > 1 and sys.argv[1] == "--set-admin-password":
+        set_admin_password_interactive()
+        return
+
     ensure_storage()
     host = os.environ.get("HOST", "127.0.0.1")
     port = int(os.environ.get("PORT", "8000"))
     httpd = ThreadingHTTPServer((host, port), Handler)
     print(f"XhLab server running at http://{host}:{port}")
-    print("Admin password source:", "ADMIN_PASSWORD environment variable" if "ADMIN_PASSWORD" in os.environ else str(ADMIN_PASSWORD_FILE))
+    print("Admin password verifier ready.")
     try:
         httpd.serve_forever()
     except KeyboardInterrupt:
