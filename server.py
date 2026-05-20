@@ -610,7 +610,14 @@ class Handler(BaseHTTPRequestHandler):
         else:
             clean = posixpath.normpath(urllib.parse.unquote(path.lstrip("/"))).lstrip("/")
             first = clean.split("/", 1)[0]
-            allowed_files = {"index.html", "en.html", "favicon.ico", "robots.txt", "sitemap.xml"}
+            allowed_files = {
+                "index.html",
+                "en.html",
+                "favicon.ico",
+                "robots.txt",
+                "sitemap.xml",
+                "google2be491028b9dc0d0.html",
+            }
             allowed_dirs = {"assets", "data", "pages"}
             if clean not in allowed_files and first not in allowed_dirs:
                 self.send_head_only(404, "text/plain; charset=utf-8")
@@ -691,7 +698,14 @@ class Handler(BaseHTTPRequestHandler):
             path = "/index.html"
         clean = posixpath.normpath(urllib.parse.unquote(path.lstrip("/"))).lstrip("/")
         first = clean.split("/", 1)[0]
-        allowed_files = {"index.html", "en.html", "favicon.ico", "robots.txt", "sitemap.xml"}
+        allowed_files = {
+            "index.html",
+            "en.html",
+            "favicon.ico",
+            "robots.txt",
+            "sitemap.xml",
+            "google2be491028b9dc0d0.html",
+        }
         allowed_dirs = {"assets", "data", "pages"}
         if clean not in allowed_files and first not in allowed_dirs:
             self.send_bytes(b"Not found", 404, "text/plain; charset=utf-8")
