@@ -37,9 +37,14 @@ UPLOAD_DIR = STORAGE_DIR / "uploads"
 PROJECTS_JSON = STORAGE_DIR / "projects.json"
 APP_SECRET_FILE = STORAGE_DIR / "app.secret"
 ADMIN_PASSWORD_FILE = STORAGE_DIR / "admin.secret"
+LOGIN_ATTEMPTS_FILE = STORAGE_DIR / "login_attempts.json"
 LEGACY_PROJECTS_JS = ROOT / "data" / "projects.js"
 MAX_BODY_SIZE = 12 * 1024 * 1024
 SESSION_SECONDS = 7 * 24 * 60 * 60
+ADMIN_USERNAME = "xhlab"
+LOGIN_FAILURE_LIMIT = 3
+LOGIN_FAILURE_WINDOW_SECONDS = 10 * 60
+LOGIN_LOCK_SECONDS = 10 * 60
 PASSWORD_HASH_PREFIX = "pbkdf2_sha256"
 PASSWORD_HASH_ITERATIONS = 260000
 
@@ -164,6 +169,65 @@ def read_admin_secret() -> str:
 
 def verify_admin_password(password: str) -> bool:
     return verify_password(password, read_admin_secret())
+
+
+def verify_admin_credentials(username: str, password: str) -> bool:
+    username_ok = hmac.compare_digest(username.strip(), ADMIN_USERNAME)
+    password_ok = verify_admin_password(password)
+    return username_ok and password_ok
+
+
+def read_login_attempts() -> dict:
+    ensure_storage()
+    if not LOGIN_ATTEMPTS_FILE.exists():
+        return {}
+    try:
+        return json.loads(LOGIN_ATTEMPTS_FILE.read_text(encoding="utf-8"))
+    except (json.JSONDecodeError, OSError):
+        return {}
+
+
+def write_login_attempts(attempts: dict) -> None:
+    temp = LOGIN_ATTEMPTS_FILE.with_suffix(".tmp")
+    temp.write_text(json.dumps(attempts, ensure_ascii=False, indent=2), encoding="utf-8")
+    temp.replace(LOGIN_ATTEMPTS_FILE)
+
+
+def login_lock_remaining(client_key: str) -> int:
+    attempts = read_login_attempts()
+    record = attempts.get(client_key, {})
+    remaining = int(record.get("lockedUntil", 0) - time.time())
+    return max(0, remaining)
+
+
+def record_login_success(client_key: str) -> None:
+    attempts = read_login_attempts()
+    if client_key in attempts:
+        attempts.pop(client_key, None)
+        write_login_attempts(attempts)
+
+
+def record_login_failure(client_key: str) -> int:
+    attempts = read_login_attempts()
+    now = int(time.time())
+    record = attempts.get(client_key, {})
+
+    if int(record.get("windowStartedAt", 0)) + LOGIN_FAILURE_WINDOW_SECONDS < now:
+        record = {"count": 0, "windowStartedAt": now, "lockedUntil": 0}
+
+    count = int(record.get("count", 0)) + 1
+    locked_until = int(record.get("lockedUntil", 0))
+    if count >= LOGIN_FAILURE_LIMIT:
+        locked_until = now + LOGIN_LOCK_SECONDS
+        count = 0
+
+    attempts[client_key] = {
+        "count": count,
+        "windowStartedAt": int(record.get("windowStartedAt", now)),
+        "lockedUntil": locked_until,
+    }
+    write_login_attempts(attempts)
+    return max(0, locked_until - now)
 
 
 def set_admin_password_interactive() -> None:
@@ -339,7 +403,7 @@ def login_page(error: str = "") -> bytes:
   <title>XhLab 后台登录</title>
   <style>
     body {{ margin:0; font-family:-apple-system,BlinkMacSystemFont,"Segoe UI","Microsoft YaHei",sans-serif; background:#f6f7f9; color:#1c2430; }}
-    .login {{ max-width:420px; margin:80px auto; background:white; border:1px solid #dde3ea; border-radius:8px; padding:24px; }}
+  .login {{ max-width:420px; margin:80px auto; background:white; border:1px solid #dde3ea; border-radius:8px; padding:24px; }}
     label {{ display:grid; gap:8px; font-weight:600; margin:16px 0; }}
     input {{ width:100%; border:1px solid #dde3ea; border-radius:6px; padding:10px 12px; font:inherit; }}
     button {{ width:100%; min-height:40px; border:0; border-radius:6px; background:#157a6e; color:white; font:inherit; cursor:pointer; }}
@@ -351,7 +415,8 @@ def login_page(error: str = "") -> bytes:
   <form class="login" method="post" action="/admin/login">
     <h1>后台登录</h1>
     {f"<p class='error'>{html.escape(error)}</p>" if error else ""}
-    <label>管理员密码 <input type="password" name="password" autocomplete="current-password" required autofocus></label>
+    <label>用户名 <input type="text" name="username" autocomplete="username" required autofocus></label>
+    <label>密码 <input type="password" name="password" autocomplete="current-password" required></label>
     <button type="submit">登录</button>
   </form>
 </body>
@@ -485,6 +550,12 @@ class Handler(BaseHTTPRequestHandler):
         morsel = jar.get("xh_admin")
         return verify_session(morsel.value if morsel else None)
 
+    def client_key(self) -> str:
+        forwarded = self.headers.get("X-Forwarded-For", "")
+        if forwarded:
+            return forwarded.split(",", 1)[0].strip()
+        return self.client_address[0]
+
     def require_admin(self) -> bool:
         if self.is_admin():
             return True
@@ -564,11 +635,23 @@ class Handler(BaseHTTPRequestHandler):
 
         if path == "/admin/login":
             fields = parse_form(body, self.headers.get("content-type", ""))
-            if verify_admin_password(fields.get("password", "")):
+            client_key = self.client_key()
+            remaining = login_lock_remaining(client_key)
+            if remaining > 0:
+                minutes = max(1, (remaining + 59) // 60)
+                self.send_bytes(login_page(f"尝试次数过多，请 {minutes} 分钟后再试。"), 429)
+                return
+
+            if verify_admin_credentials(fields.get("username", ""), fields.get("password", "")):
+                record_login_success(client_key)
                 session = make_session()
                 self.redirect("/admin", headers={"Set-Cookie": f"xh_admin={session}; HttpOnly; SameSite=Lax; Path=/; Max-Age={SESSION_SECONDS}"})
             else:
-                self.send_bytes(login_page("密码不正确，请重新输入。"), 403)
+                locked_for = record_login_failure(client_key)
+                if locked_for > 0:
+                    self.send_bytes(login_page("尝试次数过多，请 10 分钟后再试。"), 429)
+                else:
+                    self.send_bytes(login_page("用户名或密码不正确，请重新输入。"), 403)
             return
 
         if path == "/admin/logout":
