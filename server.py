@@ -610,7 +610,7 @@ class Handler(BaseHTTPRequestHandler):
         else:
             clean = posixpath.normpath(urllib.parse.unquote(path.lstrip("/"))).lstrip("/")
             first = clean.split("/", 1)[0]
-            allowed_files = {"index.html", "en.html", "favicon.ico"}
+            allowed_files = {"index.html", "en.html", "favicon.ico", "robots.txt", "sitemap.xml"}
             allowed_dirs = {"assets", "data", "pages"}
             if clean not in allowed_files and first not in allowed_dirs:
                 self.send_head_only(404, "text/plain; charset=utf-8")
@@ -622,6 +622,8 @@ class Handler(BaseHTTPRequestHandler):
             return
 
         content_type = mimetypes.guess_type(str(target))[0] or "application/octet-stream"
+        if content_type.startswith("text/") or content_type in {"application/javascript", "application/xml"}:
+            content_type = f"{content_type}; charset=utf-8"
         self.send_head_only(200, content_type, target.stat().st_size)
 
     def do_POST(self) -> None:
@@ -689,7 +691,7 @@ class Handler(BaseHTTPRequestHandler):
             path = "/index.html"
         clean = posixpath.normpath(urllib.parse.unquote(path.lstrip("/"))).lstrip("/")
         first = clean.split("/", 1)[0]
-        allowed_files = {"index.html", "en.html", "favicon.ico"}
+        allowed_files = {"index.html", "en.html", "favicon.ico", "robots.txt", "sitemap.xml"}
         allowed_dirs = {"assets", "data", "pages"}
         if clean not in allowed_files and first not in allowed_dirs:
             self.send_bytes(b"Not found", 404, "text/plain; charset=utf-8")
@@ -711,6 +713,8 @@ class Handler(BaseHTTPRequestHandler):
             self.send_bytes(b"Not found", 404, "text/plain; charset=utf-8")
             return
         content_type = mimetypes.guess_type(str(target))[0] or "application/octet-stream"
+        if content_type.startswith("text/") or content_type in {"application/javascript", "application/xml"}:
+            content_type = f"{content_type}; charset=utf-8"
         with target.open("rb") as file:
             self.send_bytes(file.read(), 200, content_type)
 
