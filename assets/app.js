@@ -1,5 +1,5 @@
 (function () {
-  const projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
+  let projects = Array.isArray(window.PROJECTS) ? window.PROJECTS : [];
   const lang = document.documentElement.lang.toLowerCase().startsWith("en") ? "en" : "zh";
   const assetBase = new URL(".", document.currentScript.src);
   const assetPath = (path) => new URL(path, assetBase).toString();
@@ -17,7 +17,11 @@
       functionTitle: "实现功能",
       techTitle: "核心器件 / 技术",
       materialsTitle: "可确认物料",
+      resourceTitle: "项目资源",
       accessTitle: "获取说明",
+      sourceUrl: "源码链接",
+      demoVideoUrl: "演示视频",
+      configDocUrl: "配置文档",
       accessText: (subject) =>
         `公开页面不展示源码仓库地址。咨询时可发送“${subject}”，确认后按项目交付资料包或私有仓库访问方式。`,
       deliverables: {
@@ -46,7 +50,11 @@
       functionTitle: "Implemented Functions",
       techTitle: "Key Materials / Technologies",
       materialsTitle: "Confirmable Deliverables",
+      resourceTitle: "Project Resources",
       accessTitle: "Access Note",
+      sourceUrl: "Source Link",
+      demoVideoUrl: "Demo Video",
+      configDocUrl: "Config Document",
       accessText: (subject) =>
         `The public page does not expose source repository URLs. You can send "${subject}" when requesting materials; delivery is confirmed separately through a project package or private repository access.`,
       deliverables: {
@@ -351,7 +359,8 @@
   }
 
   function textOf(project) {
-    return `${project.id} ${project.name} ${project.description} ${project.tech}`;
+    const materials = Array.isArray(project.materials) ? project.materials.join(" ") : "";
+    return `${project.id} ${project.name || ""} ${project.description || ""} ${project.tech || ""} ${materials}`;
   }
 
   function labelOf(category) {
@@ -390,7 +399,7 @@
   }
 
   function techItems(project) {
-    return project.tech
+    return String(project.tech || "")
       .split(/[、,+/]/)
       .map((item) => item.trim())
       .filter(Boolean)
@@ -398,6 +407,10 @@
   }
 
   function inferDeliverables(project) {
+    if (Array.isArray(project.materials) && project.materials.length > 0) {
+      return project.materials;
+    }
+
     const text = textOf(project);
     const names = copy[lang].deliverables;
     const deliverables = [names.source, names.docs];
@@ -429,6 +442,20 @@
       return levels.beginner;
     }
     return levels.intermediate;
+  }
+
+  function projectImage(project, category) {
+    return project.imageUrl || project.image || category.image;
+  }
+
+  function resourceLinks(project) {
+    return [
+      ["sourceUrl", copy[lang].sourceUrl],
+      ["demoVideoUrl", copy[lang].demoVideoUrl],
+      ["configDocUrl", copy[lang].configDocUrl],
+    ]
+      .map(([key, label]) => ({ label, url: String(project[key] || "").trim() }))
+      .filter((item) => item.url);
   }
 
   function projectMatchesQuery(project) {
@@ -492,6 +519,7 @@
       .map((project) => {
         const category = primaryCategory(project);
         const categoryLabel = labelOf(category);
+        const image = projectImage(project, category);
         const deliverables = inferDeliverables(project).slice(0, 3);
         const chips = [categoryLabel, inferLevel(project), ...deliverables]
           .slice(0, 5)
@@ -501,7 +529,7 @@
         return `
           <article class="project-card">
             <div class="project-media">
-              <img src="${escapeHtml(category.image)}" alt="${escapeHtml(copy[lang].projectAlt(project.name))}" loading="lazy">
+              <img src="${escapeHtml(image)}" alt="${escapeHtml(copy[lang].projectAlt(project.name))}" loading="lazy">
               <span class="project-id">P${String(project.id).padStart(3, "0")}</span>
             </div>
             <div class="project-body">
@@ -540,14 +568,16 @@
 
     const category = primaryCategory(project);
     const categoryLabel = labelOf(category);
+    const image = projectImage(project, category);
     const deliverables = inferDeliverables(project);
     const items = techItems(project);
+    const links = resourceLinks(project);
     const subject = `P${String(project.id).padStart(3, "0")} ${project.name}`;
 
     els.dialogContent.innerHTML = `
       <div class="dialog-inner">
         <div class="dialog-hero">
-          <img src="${escapeHtml(category.image)}" alt="${escapeHtml(copy[lang].dialogImageAlt(project.name))}">
+          <img src="${escapeHtml(image)}" alt="${escapeHtml(copy[lang].dialogImageAlt(project.name))}">
         </div>
         <div class="dialog-title-row">
           <div class="chip-row">
@@ -574,6 +604,14 @@
             ${deliverables.map((item) => `<span class="chip">${escapeHtml(item)}</span>`).join("")}
           </div>
         </div>
+        ${links.length > 0 ? `
+          <div class="dialog-section">
+            <h3>${escapeHtml(copy[lang].resourceTitle)}</h3>
+            <div class="resource-links">
+              ${links.map((item) => `<a href="${escapeHtml(item.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(item.label)}</a>`).join("")}
+            </div>
+          </div>
+        ` : ""}
         <div class="dialog-section">
           <h3>${escapeHtml(copy[lang].accessTitle)}</h3>
           <p>${escapeHtml(copy[lang].accessText(subject))}</p>
@@ -593,6 +631,23 @@
       els.dialog.close();
     } else {
       els.dialog.removeAttribute("open");
+    }
+  }
+
+  async function loadProjects() {
+    if (!window.fetch || window.location.protocol === "file:") {
+      return;
+    }
+
+    try {
+      const response = await fetch("/api/projects", { headers: { Accept: "application/json" } });
+      if (!response.ok) return;
+      const data = await response.json();
+      if (Array.isArray(data.projects)) {
+        projects = data.projects;
+      }
+    } catch (error) {
+      // Keep the static data fallback when the backend is not running.
     }
   }
 
@@ -649,5 +704,5 @@
     }
   });
 
-  render();
+  loadProjects().then(render);
 })();

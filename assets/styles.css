@@ -1094,6 +1094,25 @@ img {
   padding: 5px 9px;
 }
 
+.resource-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.resource-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  border: 1px solid rgba(21, 122, 110, 0.24);
+  border-radius: 999px;
+  padding: 5px 11px;
+  background: rgba(21, 122, 110, 0.08);
+  color: var(--accent);
+  font-size: 13px;
+  font-weight: 700;
+}
+
 .empty-state {
   grid-column: 1 / -1;
   border: 1px solid var(--line);
