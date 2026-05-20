@@ -617,6 +617,7 @@ class Handler(BaseHTTPRequestHandler):
                 "robots.txt",
                 "sitemap.xml",
                 "google2be491028b9dc0d0.html",
+                "baidu_verify_codeva-zhYUNIe6ql.html",
             }
             allowed_dirs = {"assets", "data", "pages"}
             if clean not in allowed_files and first not in allowed_dirs:
@@ -705,6 +706,7 @@ class Handler(BaseHTTPRequestHandler):
             "robots.txt",
             "sitemap.xml",
             "google2be491028b9dc0d0.html",
+            "baidu_verify_codeva-zhYUNIe6ql.html",
         }
         allowed_dirs = {"assets", "data", "pages"}
         if clean not in allowed_files and first not in allowed_dirs:
